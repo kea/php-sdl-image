@@ -3,10 +3,31 @@
 #ifndef PHP_SDL_IMAGE_H
 # define PHP_SDL_IMAGE_H
 
-extern zend_module_entry sdl_image_module_entry;
-# define phpext_sdl_image_ptr &sdl_image_module_entry
+#define PHP_SDL_IMAGE_VERSION "0.1.0"
 
-# define PHP_SDL_IMAGE_VERSION "0.1.0"
+#if defined(__APPLE__) && defined(__MACH__)
+#include <SDL2/SDL.h>
+#else
+#include <SDL.h>
+#endif
+
+#include "php.h"
+#include "ext/standard/info.h"
+
+# include <SAPI.h>
+# include <Zend/zend_extensions.h>
+
+extern zend_module_entry sdl_image_module_entry;
+#define phpext_sdl_image_ptr &sdl_image_module_entry
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_IMG_LoadTexture, 0, 0, 2)
+      ZEND_ARG_INFO(0, renderer)
+      ZEND_ARG_INFO(0, path)
+ZEND_END_ARG_INFO()
+
+PHP_FUNCTION(IMG_LoadTexture);
+
+PHP_MINIT_FUNCTION(sdl_image);
 
 # if defined(ZTS) && defined(COMPILE_DL_SDL_IMAGE)
 ZEND_TSRMLS_CACHE_EXTERN()
