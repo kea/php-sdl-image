@@ -5,12 +5,7 @@
 
 #define PHP_SDL_IMAGE_VERSION "0.1.0"
 
-#if defined(__APPLE__) && defined(__MACH__)
 #include <SDL2/SDL.h>
-#else
-#include <SDL.h>
-#endif
-
 #include "php.h"
 #include "ext/standard/info.h"
 
