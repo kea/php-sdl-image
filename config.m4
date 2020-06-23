@@ -25,13 +25,13 @@ if test "$PHP_SDL_IMAGE" != "no"; then
     fi
 
     AC_CHECK_LIB(SDL2_image, IMG_Load, [
-      PHP_ADD_LIBRARY(SDL_image,, SDL2_IMAGE_SHARED_LIBADD)
+      PHP_ADD_LIBRARY(SDL2_image,, SDL_IMAGE_SHARED_LIBADD)
     ], [
       AC_MSG_ERROR([libSDL2_image not found!])
     ])
 
   AC_DEFINE(HAVE_SDL_IMAGE, 1, [ Have sdl_image support ])
 
-  PHP_SUBST(SDL2_IMAGE_SHARED_LIBADD)
+  PHP_SUBST(SDL_IMAGE_SHARED_LIBADD)
   PHP_NEW_EXTENSION(sdl_image, php_sdl_image.c, $ext_shared)
 fi
