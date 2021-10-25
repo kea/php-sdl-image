@@ -34,6 +34,10 @@ PHP_FUNCTION(IMG_LoadTexture)
     renderer = (SDL_Renderer*)zend_fetch_resource(Z_RES_P(z_renderer), SDL_RENDERER_RES_NAME, le_sdl_renderer);
 	texture = IMG_LoadTexture(renderer, ZSTR_VAL(path));
 
+	if (!texture) {
+		RETURN_NULL();
+	}
+
 	RETURN_RES(zend_register_resource(texture, le_sdl_texture));
 }
 /* }}} */
