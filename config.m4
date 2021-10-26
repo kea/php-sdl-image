@@ -34,4 +34,5 @@ if test "$PHP_SDL_IMAGE" != "no"; then
 
   PHP_SUBST(SDL_IMAGE_SHARED_LIBADD)
   PHP_NEW_EXTENSION(sdl_image, php_sdl_image.c, $ext_shared)
+  PHP_ADD_EXTENSION_DEP(sdl_image, sdl)
 fi

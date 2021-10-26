@@ -4,4 +4,5 @@ if (PHP_SDL_IMAGE != 'no') {
 	AC_DEFINE('HAVE_SDL_IMAGE', 1, 'sdl_image support enabled');
 
 	EXTENSION('sdl_image', 'sdl_image.c', null, '/DZEND_ENABLE_STATIC_TSRMLS_CACHE=1');
+	ADD_EXTENSION_DEP(sdl_image, sdl)
 }
