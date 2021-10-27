@@ -62,13 +62,6 @@ PHP_FUNCTION(IMG_Load)
 	sdl_surface_to_zval(surface, return_value);
 }
 
-static const zend_function_entry php_sdl_image_functions[] = {
-	PHP_FE(IMG_Load,		arginfo_IMG_Load)
-	PHP_FE(IMG_LoadTexture,	arginfo_IMG_LoadTexture)
-
-    PHP_FE_END
-};
-
 /* {{{ PHP_MINIT_FUNCTION
  */
 PHP_MINIT_FUNCTION(sdl_image)
@@ -95,13 +88,13 @@ PHP_MINFO_FUNCTION(sdl_image)
  */
 zend_module_entry sdl_image_module_entry = {
 	STANDARD_MODULE_HEADER,
-	"SDL_image",					/* Extension name */
-	php_sdl_image_functions,		/* zend_function_entry */
-	PHP_MINIT(sdl_image),	        /* PHP_MINIT - Module initialization */
-	NULL,							/* PHP_MSHUTDOWN - Module shutdown */
-	NULL,               			/* PHP_RINIT - Request initialization */
-	NULL,							/* PHP_RSHUTDOWN - Request shutdown */
-	PHP_MINFO(sdl_image),			/* PHP_MINFO - Module info */
+	"SDL_image",				/* Extension name */
+	ext_functions,				/* zend_function_entry */
+	PHP_MINIT(sdl_image),		/* PHP_MINIT - Module initialization */
+	NULL,						/* PHP_MSHUTDOWN - Module shutdown */
+	NULL,						/* PHP_RINIT - Request initialization */
+	NULL,						/* PHP_RSHUTDOWN - Request shutdown */
+	PHP_MINFO(sdl_image),		/* PHP_MINFO - Module info */
 	PHP_SDL_IMAGE_VERSION,		/* Version */
 	STANDARD_MODULE_PROPERTIES
 };
