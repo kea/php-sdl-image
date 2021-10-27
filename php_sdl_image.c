@@ -7,9 +7,11 @@
 #include "php_sdl_image.h"
 
 extern DECLSPEC SDL_Texture * SDLCALL IMG_LoadTexture(SDL_Renderer *renderer, const char *file);
+extern DECLSPEC SDL_Surface * SDLCALL IMG_Load(const char *file);
 #define SDL_RENDERER_RES_NAME "SDL Renderer"
 extern int le_sdl_renderer;
 extern int le_sdl_texture;
+extern zend_bool sdl_surface_to_zval(SDL_Surface *surface, zval *z_val);
 
 /* {{{ proto SDL_Texture IMG_LoadTexture(string file)
 
@@ -20,7 +22,7 @@ extern int le_sdl_texture;
  */
 PHP_FUNCTION(IMG_LoadTexture)
 {
-    zend_string *path;
+    zend_string *file;
 	SDL_Texture *texture = NULL;
 
 	zval *z_renderer = NULL;
@@ -28,11 +30,11 @@ PHP_FUNCTION(IMG_LoadTexture)
 
 	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_ZVAL(z_renderer)
-		Z_PARAM_STR(path)
+		Z_PARAM_STR(file)
 	ZEND_PARSE_PARAMETERS_END();
 
     renderer = (SDL_Renderer*)zend_fetch_resource(Z_RES_P(z_renderer), SDL_RENDERER_RES_NAME, le_sdl_renderer);
-	texture = IMG_LoadTexture(renderer, ZSTR_VAL(path));
+	texture = IMG_LoadTexture(renderer, ZSTR_VAL(file));
 
 	if (!texture) {
 		RETURN_NULL();
@@ -42,8 +44,27 @@ PHP_FUNCTION(IMG_LoadTexture)
 }
 /* }}} */
 
+PHP_FUNCTION(IMG_Load)
+{
+	zend_string *file;
+	SDL_Surface *surface = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+	Z_PARAM_STR(file)
+	ZEND_PARSE_PARAMETERS_END();
+
+	surface = IMG_Load(ZSTR_VAL(file));
+
+	if (!surface) {
+		RETURN_NULL();
+	}
+
+	sdl_surface_to_zval(surface, return_value);
+}
+
 static const zend_function_entry php_sdl_image_functions[] = {
-	PHP_FE(IMG_LoadTexture,		arginfo_IMG_LoadTexture)
+	PHP_FE(IMG_Load,		arginfo_IMG_Load)
+	PHP_FE(IMG_LoadTexture,	arginfo_IMG_LoadTexture)
 
     PHP_FE_END
 };

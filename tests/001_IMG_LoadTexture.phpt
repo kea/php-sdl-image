@@ -1,5 +1,5 @@
 --TEST--
-Check image load
+Check image load to texture
 --SKIPIF--
 <?php
 if (!extension_loaded('SDL_image')) {
