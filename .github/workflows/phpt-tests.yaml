@@ -16,8 +16,7 @@ jobs:
         os:
           - ubuntu-latest
         php-version:
-          - 8.0
-          - 8.1
+          - 8.0.12
         zts-mode:
           - zts
           - nts
@@ -27,9 +26,6 @@ jobs:
       - name: "Set ZTS mode, PHP 8+"
         if: ${{ matrix.zts-mode == 'zts' && startsWith(matrix.php-version, '8.') }}
         run: echo "zts_flag=--enable-zts" >> $GITHUB_ENV
-      - name: "Set ZTS mode, PHP 7"
-        if: ${{ matrix.zts-mode == 'zts' && startsWith(matrix.php-version, '7.') }}
-        run: echo "zts_flag=--enable-maintainer-zts" >> $GITHUB_ENV
       - name: "Set NTS mode"
         if: ${{ matrix.zts-mode == 'nts' }}
         run: echo "zts_flag=" >> $GITHUB_ENV
