@@ -1,0 +1,68 @@
+name: PHPT Tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  phpt-test:
+    name: "PHPT Tests"
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+        php-version:
+          - 8.0
+          - 8.1
+        zts-mode:
+          - zts
+          - nts
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: "Set ZTS mode, PHP 8+"
+        if: ${{ matrix.zts-mode == 'zts' && startsWith(matrix.php-version, '8.') }}
+        run: echo "zts_flag=--enable-zts" >> $GITHUB_ENV
+      - name: "Set ZTS mode, PHP 7"
+        if: ${{ matrix.zts-mode == 'zts' && startsWith(matrix.php-version, '7.') }}
+        run: echo "zts_flag=--enable-maintainer-zts" >> $GITHUB_ENV
+      - name: "Set NTS mode"
+        if: ${{ matrix.zts-mode == 'nts' }}
+        run: echo "zts_flag=" >> $GITHUB_ENV
+
+      - name: "Install PHP ${{ matrix.php-version }} (${{ env.zts_flag}} ${{ matrix.php-options }})"
+        run: |
+          sudo DEBIAN_FRONTEND=noninteractive apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get -yq install software-properties-common build-essential autoconf libxml2-dev libsqlite3-dev libcurl4-openssl-dev
+          cd /tmp
+          FINAL_DOWNLOAD_URL="https://www.php.net/distributions/php-${{ matrix.php-version }}.tar.gz"
+          echo "Downloading release from $FINAL_DOWNLOAD_URL ..."
+          wget $FINAL_DOWNLOAD_URL
+          tar zxf php-${{ matrix.php-version }}.tar.gz
+          cd php-${{ matrix.php-version }}
+          ./configure --enable-debug --with-openssl ${{ env.zts_flag}} ${{ matrix.php-options }}
+          make -j$(nproc)
+          sudo make install
+          cd $GITHUB_WORKSPACE
+      - name: "Update PEAR/PECL channels"
+        run: |
+          sudo pear update-channels
+          sudo pecl update-channels
+      - name: "Install SDL2 extension"
+        run: |
+          sudo apt-get install libsdl2-dev
+          echo '' | sudo pecl install sdl-devel
+      - name: "Base PHP configuration dump (information)"
+        run: php -i
+      - name: "Build SDL2_image extension"
+        run: |
+          phpize
+          ./configure --enable-sdl_image
+          make
+      - name: "Run the tests"
+        run: |
+          php run-tests.php -p `which php` -d zend_extension=`pwd`/modules/sdl_image.so -d extension=sdl.so "FAIL,XFAIL,BORK,WARN,LEAK,SKIP" --offline --show-diff --set-timeout 120 -q
