@@ -56,6 +56,7 @@ jobs:
         run: php -i
       - name: "Build SDL2_image extension"
         run: |
+          sudo apt-get install libsdl2-image-dev
           phpize
           ./configure --enable-sdl_image
           make
