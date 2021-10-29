@@ -62,4 +62,4 @@ jobs:
           make
       - name: "Run the tests"
         run: |
-          php run-tests.php -p `which php` -d zend_extension=`pwd`/modules/sdl_image.so -d extension=sdl.so "FAIL,XFAIL,BORK,WARN,LEAK,SKIP" --offline --show-diff --set-timeout 120 -q
+          php run-tests.php -p `which php` -d extension=sdl.so -d extension=`pwd`/modules/sdl_image.so  --offline --show-diff --set-timeout 120 -q
