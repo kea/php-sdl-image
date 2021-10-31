@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package
+        packagerversion="1.9.4" version="2.0"
+        xmlns="http://pear.php.net/dtd/package-2.0"
+        xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+    <name>SDL_image</name>
+    <channel>pecl.php.net</channel>
+    <summary>Binding of SDL_image for PHP</summary>
+    <description>
+        SDL_image extension for PHP provides the binding of functions for loading images in SDL textures and surfaces.
+    </description>
+    <lead>
+        <name>Manuel Baldassarri</name>
+        <user>kea</user>
+        <email>manuel@baldassarri.me</email>
+        <active>yes</active>
+    </lead>
+
+    <!-- Current Release -->
+    <date>2021-10-31</date>
+    <time>09:00:00</time>
+    <version>
+        <release>0.1.0</release>
+        <api>1.0.0</api>
+    </version>
+    <stability>
+        <release>stable</release>
+        <api>stable</api>
+    </stability>
+    <license uri="https://github.com/kea/php-sdl-image/LICENSE">ZLIB</license>
+    <notes>
+        - Initial release
+    </notes>
+    <!-- End Current Release -->
+
+    <contents>
+        <dir name="/">
+            <file name="config.m4" role="src" />
+            <file name="php_sdl_image.c" role="src" />
+            <file name="php_sdl_image.h" role="src" />
+            <file name="php_sdl_image_arginfo.h" role="src" />
+            <file name="php_sdl_image.stub.php" role="src" />
+            <file name="README.md" role="doc" />
+            <file name="LICENSE" role="doc" />
+            <file name="CREDITS" role="doc" />
+            <dir name="tests">
+                <file name="1x1.png" role="test" />
+                <file name="001-IMG_LoadTexture.phpt" role="test" />
+                <file name="002-IMG_Load.phpt" role="test" />
+            </dir>
+        </dir>
+    </contents>
+
+    <dependencies>
+        <required>
+            <php>
+                <min>8.0.0</min>
+                <max>8.1.99</max>
+            </php>
+            <pearinstaller>
+                <min>1.9.1</min>
+            </pearinstaller>
+        </required>
+    </dependencies>
+    <providesextension>SDL_image</providesextension>
+    <zendextsrcrelease />
+
+    <changelog>
+    </changelog>
+</package>

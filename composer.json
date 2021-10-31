@@ -1,0 +1,15 @@
+{
+    "name": "SDL_image",
+    "version": "0.1.0",
+    "type": "extension",
+    "license": [
+        "ZLIB"
+    ],
+    "authors": [
+        {
+            "name": "Manuel Baldassarri",
+            "email": "manuel@baldassarri.me"
+        }
+    ],
+    "description": "Binding of SDL_image for PHP"
+}
