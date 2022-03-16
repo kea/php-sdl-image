@@ -6,8 +6,6 @@
 
 #include "php_sdl_image.h"
 
-extern DECLSPEC SDL_Texture * SDLCALL IMG_LoadTexture(SDL_Renderer *renderer, const char *file);
-extern DECLSPEC SDL_Surface * SDLCALL IMG_Load(const char *file);
 #define SDL_RENDERER_RES_NAME "SDL Renderer"
 extern int le_sdl_renderer;
 extern int le_sdl_texture;
@@ -84,11 +82,16 @@ PHP_MINFO_FUNCTION(sdl_image)
 }
 /* }}} */
 
-/* {{{ sdl_image_module_entry
- */
+static const zend_module_dep ext_deps[] = {
+    ZEND_MOD_REQUIRED("sdl")
+    ZEND_MOD_END
+};
+
 zend_module_entry sdl_image_module_entry = {
-	STANDARD_MODULE_HEADER,
-	"SDL_image",				/* Extension name */
+	STANDARD_MODULE_HEADER_EX,
+	NULL,
+	ext_deps,
+	"SDL_image",
 	ext_functions,				/* zend_function_entry */
 	PHP_MINIT(sdl_image),		/* PHP_MINIT - Module initialization */
 	NULL,						/* PHP_MSHUTDOWN - Module shutdown */
@@ -98,7 +101,6 @@ zend_module_entry sdl_image_module_entry = {
 	PHP_SDL_IMAGE_VERSION,		/* Version */
 	STANDARD_MODULE_PROPERTIES
 };
-/* }}} */
 
 #ifdef COMPILE_DL_SDL_IMAGE
 # ifdef ZTS
