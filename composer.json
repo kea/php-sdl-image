@@ -1,10 +1,11 @@
 {
-    "name": "SDL_image",
-    "version": "0.1.0",
+    "name": "sdl_image",
+    "version": "0.4.0",
     "type": "extension",
     "license": [
-        "ZLIB"
+        "ZLib"
     ],
+    "keywords": ["SDL", "multimedia", "game"],
     "authors": [
         {
             "name": "Manuel Baldassarri",
