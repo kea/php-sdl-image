@@ -14,8 +14,7 @@ jobs:
       matrix:
 #        os: [macos-latest, ubuntu-latest]
         os: [ubuntu-latest]
-#        php-versions: [8.0, 8.1, 8.2]
-        php-versions: [8.2]
+        php-versions: [8.0, 8.1, 8.2]
 #        zts-mode: [zts, nts]
         zts-mode: [zts]
     runs-on: ${{ matrix.os }}
