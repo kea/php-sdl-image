@@ -32,6 +32,7 @@ jobs:
           extensions: mbstring, intl
       - name: "Build SDL extension"
         run: |
+          sudo apt-get update -q
           sudo DEBIAN_FRONTEND=noninteractive apt-get -yq install libsdl2-dev libsdl2-image-dev
           git clone https://github.com/Ponup/php-sdl.git "$RUNNER_TEMP/php-sdl"
           cd "$RUNNER_TEMP/php-sdl"
