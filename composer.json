@@ -1,16 +1,28 @@
 {
-    "name": "sdl_image",
-    "version": "0.4.0",
-    "type": "extension",
-    "license": [
-        "ZLib"
-    ],
-    "keywords": ["SDL", "multimedia", "game"],
+    "name": "kea/php-sdl-image",
+    "type": "php-ext",
+    "license": "Zlib",
+    "description": "Binding of SDL_image for PHP",
+    "keywords": ["SDL", "SDL_image", "multimedia", "game", "extension"],
+    "homepage": "https://github.com/kea/php-sdl-image",
     "authors": [
         {
             "name": "Manuel Baldassarri",
             "email": "manuel@baldassarri.me"
         }
     ],
-    "description": "Binding of SDL_image for PHP"
+    "require": {
+        "php": ">=8.0",
+        "ext-sdl": "*"
+    },
+    "php-ext": {
+        "extension-name": "sdl_image",
+        "configure-options": [
+            {
+                "name": "with-sdl_image",
+                "needs-value": true,
+                "description": "SDL_image base include and lib directory (default: search in /usr/local and /usr)"
+            }
+        ]
+    }
 }

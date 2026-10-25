@@ -3,7 +3,7 @@
 #ifndef PHP_SDL_IMAGE_H
 # define PHP_SDL_IMAGE_H
 
-#define PHP_SDL_IMAGE_VERSION "0.4.0"
+#define PHP_SDL_IMAGE_VERSION "1.0.0"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
